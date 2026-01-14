@@ -1,17 +1,30 @@
 import fastapi
-from pydantic import BaseModel
+from pydantic import BaseModel, conint, Field
 from typing import List, Dict, Any
 import pandas as pd
 import joblib
 import os
+from enum import Enum
+from typing import Annotated
 
 app = fastapi.FastAPI()
 catalog = {}
 
+class FlightValueEnum(Enum):
+    NATIONAL = 'N'
+    INTERNATIONAL = 'I'
+
+class CompanyEnum(Enum):
+    AMERICAN = "American Wings", 
+    LATAM = "Grupo LATAM",
+    SKY = "Sky Airline",
+    COPA = "Copa Air",
+    ARGENTINAS = "Aerolineas Argentinas"
+
 class FlightFeatures(BaseModel):
-    OPERA: str
-    TIPOVUELO: str
-    MES: str 
+    OPERA: CompanyEnum
+    TIPOVUELO: FlightValueEnum
+    MES: Annotated[int, Field(ge=1, le=10)] 
 
 class InputPrediction(BaseModel):
     flights: List[FlightFeatures]
@@ -60,15 +73,17 @@ def convert_list_to_df(
     print("Converted Features \n", features_df) 
     return features_df
 
-@app.on_event("startup")
-def startup_event():
-
+def load_model():
     is_local_deployment = int(os.environ.get('IS_LOCAL_DEPLOYMENT', "0"))
     artifact_path = './artifacts' if is_local_deployment else "./challenge/artifacts"
-    
+
     _model = joblib.load(f"{artifact_path}/model.joblib")
     catalog["model"] = _model
 
+@app.on_event("startup")
+def startup_event():
+    load_model()
+    
 @app.get("/health", status_code=200)
 async def get_health() -> dict:
     return {
@@ -82,8 +97,11 @@ async def post_predict(request: InputPrediction) -> dict:
     features_df = [ feature.dict() for feature in list_features] 
     features_df = convert_list_to_df(features_df)
 
+    if "model" not in catalog:
+        load_model()
+
     predictions = catalog["model"].predict(features_df)
 
     return {
-        "predictions": predictions.tolist()
+        "predict": predictions.tolist()
     }
