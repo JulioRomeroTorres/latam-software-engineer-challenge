@@ -120,7 +120,7 @@ table.stats tr.total td {
 
         <div class="info">
             
-            <p>During: <span class="l10n datetime">2026-01-14 23:03:10</span> - <span class="l10n datetime">2026-01-14 23:04:10</span></p>
+            <p>During: <span class="l10n datetime">2026-01-14 23:12:31</span> - <span class="l10n datetime">2026-01-14 23:13:09</span></p>
             <p>Target Host: <span>https://latam-julio-romero-challenge-734156824859.us-east4.run.app</span></p>
             <p>Script: <span>api_stress.py</span></p>
         </div>
@@ -147,27 +147,27 @@ table.stats tr.total td {
                         <tr>
                             <td>POST</td>
                             <td>/predict</td>
-                            <td>5162</td>
-                            <td>2587</td>
-                            <td>348</td>
-                            <td>165</td>
-                            <td>915</td>
-                            <td>178</td>
-                            <td>86.4</td>
-                            <td>43.3</td>
+                            <td>2730</td>
+                            <td>1382</td>
+                            <td>270</td>
+                            <td>161</td>
+                            <td>782</td>
+                            <td>180</td>
+                            <td>71.6</td>
+                            <td>36.2</td>
                         </tr>
                     
                         <tr class="total">
                             <td></td>
                             <td>Aggregated</td>
-                            <td>5162</td>
-                            <td>2587</td>
-                            <td>348</td>
-                            <td>165</td>
-                            <td>915</td>
-                            <td>178</td>
-                            <td>86.4</td>
-                            <td>43.3</td>
+                            <td>2730</td>
+                            <td>1382</td>
+                            <td>270</td>
+                            <td>161</td>
+                            <td>782</td>
+                            <td>180</td>
+                            <td>71.6</td>
+                            <td>36.2</td>
                         </tr>
                     
                 </tbody>
@@ -196,27 +196,27 @@ table.stats tr.total td {
                         <tr>
                             <td>POST</td>
                             <td>/predict</td>
-                            <td>330</td>
-                            <td>370</td>
-                            <td>420</td>
-                            <td>460</td>
-                            <td>510</td>
+                            <td>250</td>
+                            <td>270</td>
+                            <td>290</td>
+                            <td>340</td>
+                            <td>390</td>
+                            <td>430</td>
                             <td>560</td>
-                            <td>680</td>
-                            <td>920</td>
+                            <td>780</td>
                         </tr>
                     
                         <tr class="total">
                             <td></td>
                             <td>Aggregated</td>
-                            <td>330</td>
-                            <td>370</td>
-                            <td>420</td>
-                            <td>460</td>
-                            <td>510</td>
+                            <td>250</td>
+                            <td>270</td>
+                            <td>290</td>
+                            <td>340</td>
+                            <td>390</td>
+                            <td>430</td>
                             <td>560</td>
-                            <td>680</td>
-                            <td>920</td>
+                            <td>780</td>
                         </tr>
                     
                 </tbody>
@@ -241,7 +241,7 @@ table.stats tr.total td {
                                 <td>POST</td>
                                 <td>/predict</td>
                                 <td>422 Client Error: unknown for url: /predict</td>
-                                <td>2587</td>
+                                <td>1382</td>
                             </tr>
                         
                     </tbody>
@@ -536,12 +536,12 @@ function fillTasksFromRequest() {
     <script>
         
 var stats_history = {
-    "time": ["23:03:15", "23:03:20", "23:03:25", "23:03:30", "23:03:35", "23:03:40", "23:03:45", "23:03:50", "23:03:55", "23:04:01", "23:04:06"].map(server_time => new Date(new Date().setUTCHours(...(server_time.split(":")))).toLocaleTimeString()),
-    "user_count": [{"value": 5}, {"value": 10}, {"value": 15}, {"value": 20}, {"value": 25}, {"value": 30}, {"value": 35}, {"value": 40}, {"value": 45}, {"value": 50}, {"value": 55}],
-    "current_rps": [{"users": 5, "value": 4.0}, {"users": 10, "value": 16.0}, {"users": 15, "value": 34.3}, {"users": 20, "value": 55.2}, {"users": 25, "value": 71.1}, {"users": 30, "value": 83.8}, {"users": 35, "value": 91.6}, {"users": 40, "value": 91.0}, {"users": 45, "value": 83.9}, {"users": 50, "value": 85.5}, {"users": 55, "value": 99.9}],
-    "current_fail_per_sec": [{"users": 5, "value": 2.3333333333333335}, {"users": 10, "value": 7.875}, {"users": 15, "value": 16.1}, {"users": 20, "value": 25.5}, {"users": 25, "value": 34.4}, {"users": 30, "value": 40.9}, {"users": 35, "value": 44.6}, {"users": 40, "value": 44.4}, {"users": 45, "value": 40.3}, {"users": 50, "value": 42.9}, {"users": 55, "value": 51.0}],
-    "response_time_percentile_1": [{"users": 5, "value": 200.0}, {"users": 10, "value": 210.0}, {"users": 15, "value": 220.0}, {"users": 20, "value": 230.0}, {"users": 25, "value": 250.0}, {"users": 30, "value": 270.0}, {"users": 35, "value": 320.0}, {"users": 40, "value": 410.0}, {"users": 45, "value": 470.0}, {"users": 50, "value": 500.0}, {"users": 55, "value": 440.0}],
-    "response_time_percentile_2": [{"users": 5, "value": 310.0}, {"users": 10, "value": 250.0}, {"users": 15, "value": 270.0}, {"users": 20, "value": 320.0}, {"users": 25, "value": 340.0}, {"users": 30, "value": 380.0}, {"users": 35, "value": 460.0}, {"users": 40, "value": 550.0}, {"users": 45, "value": 600.0}, {"users": 50, "value": 670.0}, {"users": 55, "value": 650.0}],
+    "time": ["23:12:36", "23:12:41", "23:12:46", "23:12:51", "23:12:56", "23:13:01", "23:13:06"].map(server_time => new Date(new Date().setUTCHours(...(server_time.split(":")))).toLocaleTimeString()),
+    "user_count": [{"value": 5}, {"value": 10}, {"value": 15}, {"value": 20}, {"value": 25}, {"value": 30}, {"value": 35}],
+    "current_rps": [{"users": 5, "value": 6.333333333333333}, {"users": 10, "value": 18.75}, {"users": 15, "value": 38.2}, {"users": 20, "value": 61.3}, {"users": 25, "value": 78.9}, {"users": 30, "value": 91.3}, {"users": 35, "value": 98.8}],
+    "current_fail_per_sec": [{"users": 5, "value": 4.666666666666667}, {"users": 10, "value": 9.125}, {"users": 15, "value": 17.7}, {"users": 20, "value": 29.6}, {"users": 25, "value": 39.4}, {"users": 30, "value": 47.2}, {"users": 35, "value": 50.3}],
+    "response_time_percentile_1": [{"users": 5, "value": 190.0}, {"users": 10, "value": 200.0}, {"users": 15, "value": 200.0}, {"users": 20, "value": 210.0}, {"users": 25, "value": 230.0}, {"users": 30, "value": 260.0}, {"users": 35, "value": 290.0}],
+    "response_time_percentile_2": [{"users": 5, "value": 300.0}, {"users": 10, "value": 230.0}, {"users": 15, "value": 240.0}, {"users": 20, "value": 280.0}, {"users": 25, "value": 310.0}, {"users": 30, "value": 370.0}, {"users": 35, "value": 400.0}],
     "markers": [],
 };
         var percentile1 = 0.5

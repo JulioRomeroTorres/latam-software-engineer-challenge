@@ -15,10 +15,10 @@ class FlightValueEnum(Enum):
     INTERNATIONAL = 'I'
 
 class CompanyEnum(Enum):
-    AMERICAN = "American Wings", 
-    LATAM = "Grupo LATAM",
-    SKY = "Sky Airline",
-    COPA = "Copa Air",
+    AMERICAN = "American Wings"
+    LATAM = "Grupo LATAM"
+    SKY = "Sky Airline"
+    COPA = "Copa Air"
     ARGENTINAS = "Aerolineas Argentinas"
 
 class FlightFeatures(BaseModel):
