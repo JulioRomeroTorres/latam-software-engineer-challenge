@@ -26,4 +26,4 @@ COPY --chown=${COMPOSER_UID}:${COMPOSER_GID} challenge/artifacts/ ./artifacts/
 
 EXPOSE 8080
 
-CMD ["uvicorn", "api.app", "runserver", "0.0.0.0:8080"]
+CMD ["uvicorn", "api.app", "--host", "0.0.0.0", "--port", "8080"]
