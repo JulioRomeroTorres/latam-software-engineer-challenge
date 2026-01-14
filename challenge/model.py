@@ -105,13 +105,7 @@ class DelayModel:
         """
         y_train = target['delay']
         class_weight = self.determinate_weight_class(y_train)
-
-        print("columns", features.columns)
-
-        #model = xgb.XGBClassifier(random_state=42, learning_rate=0.01, scale_pos_weight = class_weight[1]/class_weight[0],
-        #                          max_depth=3, n_estimators=100)
-        #model.fit(features, y_train)
-
+        
         model = LogisticRegression(class_weight=class_weight)
         model.fit(features, y_train)
 

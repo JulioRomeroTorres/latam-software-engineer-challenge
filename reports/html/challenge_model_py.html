@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
-    <title>Coverage for challenge/model.py: 87%</title>
+    <title>Coverage for challenge/model.py: 65%</title>
     <link rel="icon" sizes="32x32" href="favicon_32.png">
     <link rel="stylesheet" href="style.css" type="text/css">
     <script type="text/javascript" src="jquery.min.js"></script>
@@ -18,13 +18,13 @@
 <div id="header">
     <div class="content">
         <h1>Coverage for <b>challenge/model.py</b> :
-            <span class="pc_cov">87%</span>
+            <span class="pc_cov">65%</span>
         </h1>
         <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
         <h2 class="stats">
-            52 statements &nbsp;
-            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">45 run</button>
-            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">7 missing</button>
+            51 statements &nbsp;
+            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">33 run</button>
+            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">18 missing</button>
             <button type="button" class="exc show_exc shortkey_x button_toggle_exc" title="Toggle lines excluded">0 excluded</button>
         </h2>
     </div>
@@ -129,13 +129,13 @@
     <p id="t75" class="run"><span class="n"><a href="#t75">75</a></span><span class="t">        <span class="key">return</span> <span class="nam">features</span><span class="op">,</span> <span class="nam">target</span>&nbsp;</span><span class="r"></span></p>
     <p id="t76" class="pln"><span class="n"><a href="#t76">76</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t77" class="run"><span class="n"><a href="#t77">77</a></span><span class="t">    <span class="key">def</span> <span class="nam">determinate_weight_class</span><span class="op">(</span><span class="nam">self</span><span class="op">,</span> <span class="nam">target</span><span class="op">:</span> <span class="nam">pd</span><span class="op">.</span><span class="nam">Series</span><span class="op">)</span><span class="op">-></span> <span class="nam">Dict</span><span class="op">[</span><span class="nam">int</span><span class="op">,</span> <span class="nam">int</span><span class="op">]</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t78" class="run"><span class="n"><a href="#t78">78</a></span><span class="t">        <span class="nam">total_len</span> <span class="op">=</span> <span class="nam">len</span><span class="op">(</span><span class="nam">target</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t79" class="run"><span class="n"><a href="#t79">79</a></span><span class="t">        <span class="nam">mapper_class_weight</span> <span class="op">=</span> <span class="op">{</span><span class="op">}</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t78" class="mis show_mis"><span class="n"><a href="#t78">78</a></span><span class="t">        <span class="nam">total_len</span> <span class="op">=</span> <span class="nam">len</span><span class="op">(</span><span class="nam">target</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t79" class="mis show_mis"><span class="n"><a href="#t79">79</a></span><span class="t">        <span class="nam">mapper_class_weight</span> <span class="op">=</span> <span class="op">{</span><span class="op">}</span>&nbsp;</span><span class="r"></span></p>
     <p id="t80" class="pln"><span class="n"><a href="#t80">80</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t81" class="run"><span class="n"><a href="#t81">81</a></span><span class="t">        <span class="key">for</span> <span class="nam">class_value</span> <span class="key">in</span> <span class="nam">target</span><span class="op">.</span><span class="nam">unique</span><span class="op">(</span><span class="op">)</span><span class="op">.</span><span class="nam">tolist</span><span class="op">(</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t82" class="run"><span class="n"><a href="#t82">82</a></span><span class="t">            <span class="nam">mapper_class_weight</span><span class="op">[</span><span class="nam">class_value</span><span class="op">]</span> <span class="op">=</span> <span class="nam">len</span><span class="op">(</span><span class="nam">target</span><span class="op">[</span><span class="nam">target</span> <span class="op">==</span> <span class="nam">class_value</span><span class="op">]</span><span class="op">)</span><span class="op">/</span><span class="nam">total_len</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t81" class="mis show_mis"><span class="n"><a href="#t81">81</a></span><span class="t">        <span class="key">for</span> <span class="nam">class_value</span> <span class="key">in</span> <span class="nam">target</span><span class="op">.</span><span class="nam">unique</span><span class="op">(</span><span class="op">)</span><span class="op">.</span><span class="nam">tolist</span><span class="op">(</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t82" class="mis show_mis"><span class="n"><a href="#t82">82</a></span><span class="t">            <span class="nam">mapper_class_weight</span><span class="op">[</span><span class="nam">class_value</span><span class="op">]</span> <span class="op">=</span> <span class="nam">len</span><span class="op">(</span><span class="nam">target</span><span class="op">[</span><span class="nam">target</span> <span class="op">==</span> <span class="nam">class_value</span><span class="op">]</span><span class="op">)</span><span class="op">/</span><span class="nam">total_len</span>&nbsp;</span><span class="r"></span></p>
     <p id="t83" class="pln"><span class="n"><a href="#t83">83</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t84" class="run"><span class="n"><a href="#t84">84</a></span><span class="t">        <span class="key">return</span> <span class="nam">mapper_class_weight</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t84" class="mis show_mis"><span class="n"><a href="#t84">84</a></span><span class="t">        <span class="key">return</span> <span class="nam">mapper_class_weight</span>&nbsp;</span><span class="r"></span></p>
     <p id="t85" class="pln"><span class="n"><a href="#t85">85</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t86" class="run"><span class="n"><a href="#t86">86</a></span><span class="t">    <span class="key">def</span> <span class="nam">show_metric</span><span class="op">(</span><span class="nam">data</span><span class="op">:</span> <span class="nam">pd</span><span class="op">.</span><span class="nam">Series</span><span class="op">,</span> <span class="nam">predicted_data</span><span class="op">:</span> <span class="nam">pd</span><span class="op">.</span><span class="nam">Series</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t87" class="mis show_mis"><span class="n"><a href="#t87">87</a></span><span class="t">        <span class="nam">print</span><span class="op">(</span><span class="str">"Confusion Matrix"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -157,45 +157,39 @@
     <p id="t103" class="pln"><span class="n"><a href="#t103">103</a></span><span class="t"><span class="str">            features (pd.DataFrame): preprocessed data.</span>&nbsp;</span><span class="r"></span></p>
     <p id="t104" class="pln"><span class="n"><a href="#t104">104</a></span><span class="t"><span class="str">            target (pd.DataFrame): target.</span>&nbsp;</span><span class="r"></span></p>
     <p id="t105" class="pln"><span class="n"><a href="#t105">105</a></span><span class="t"><span class="str">        """</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t106" class="run"><span class="n"><a href="#t106">106</a></span><span class="t">        <span class="nam">y_train</span> <span class="op">=</span> <span class="nam">target</span><span class="op">[</span><span class="str">'delay'</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t107" class="run"><span class="n"><a href="#t107">107</a></span><span class="t">        <span class="nam">class_weight</span> <span class="op">=</span> <span class="nam">self</span><span class="op">.</span><span class="nam">determinate_weight_class</span><span class="op">(</span><span class="nam">y_train</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t106" class="mis show_mis"><span class="n"><a href="#t106">106</a></span><span class="t">        <span class="nam">y_train</span> <span class="op">=</span> <span class="nam">target</span><span class="op">[</span><span class="str">'delay'</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t107" class="mis show_mis"><span class="n"><a href="#t107">107</a></span><span class="t">        <span class="nam">class_weight</span> <span class="op">=</span> <span class="nam">self</span><span class="op">.</span><span class="nam">determinate_weight_class</span><span class="op">(</span><span class="nam">y_train</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t108" class="pln"><span class="n"><a href="#t108">108</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t109" class="run"><span class="n"><a href="#t109">109</a></span><span class="t">        <span class="nam">print</span><span class="op">(</span><span class="str">"columns"</span><span class="op">,</span> <span class="nam">features</span><span class="op">.</span><span class="nam">columns</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t110" class="pln"><span class="n"><a href="#t110">110</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t111" class="pln"><span class="n"><a href="#t111">111</a></span><span class="t">        <span class="com">#model = xgb.XGBClassifier(random_state=42, learning_rate=0.01, scale_pos_weight = class_weight[1]/class_weight[0],</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t112" class="pln"><span class="n"><a href="#t112">112</a></span><span class="t">        <span class="com">#                          max_depth=3, n_estimators=100)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t113" class="pln"><span class="n"><a href="#t113">113</a></span><span class="t">        <span class="com">#model.fit(features, y_train)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t114" class="pln"><span class="n"><a href="#t114">114</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t115" class="run"><span class="n"><a href="#t115">115</a></span><span class="t">        <span class="nam">model</span> <span class="op">=</span> <span class="nam">LogisticRegression</span><span class="op">(</span><span class="nam">class_weight</span><span class="op">=</span><span class="nam">class_weight</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t116" class="run"><span class="n"><a href="#t116">116</a></span><span class="t">        <span class="nam">model</span><span class="op">.</span><span class="nam">fit</span><span class="op">(</span><span class="nam">features</span><span class="op">,</span> <span class="nam">y_train</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t117" class="pln"><span class="n"><a href="#t117">117</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t118" class="run"><span class="n"><a href="#t118">118</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">_model</span> <span class="op">=</span> <span class="nam">model</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t119" class="pln"><span class="n"><a href="#t119">119</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t120" class="run"><span class="n"><a href="#t120">120</a></span><span class="t">        <span class="key">return</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t121" class="pln"><span class="n"><a href="#t121">121</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t122" class="run"><span class="n"><a href="#t122">122</a></span><span class="t">    <span class="key">def</span> <span class="nam">predict</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t123" class="pln"><span class="n"><a href="#t123">123</a></span><span class="t">        <span class="nam">self</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t124" class="pln"><span class="n"><a href="#t124">124</a></span><span class="t">        <span class="nam">features</span><span class="op">:</span> <span class="nam">pd</span><span class="op">.</span><span class="nam">DataFrame</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t125" class="pln"><span class="n"><a href="#t125">125</a></span><span class="t">    <span class="op">)</span> <span class="op">-></span> <span class="nam">List</span><span class="op">[</span><span class="nam">int</span><span class="op">]</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t126" class="pln"><span class="n"><a href="#t126">126</a></span><span class="t">        <span class="str">"""</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t127" class="pln"><span class="n"><a href="#t127">127</a></span><span class="t"><span class="str">        Predict delays for new flights.</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t128" class="pln"><span class="n"><a href="#t128">128</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t129" class="pln"><span class="n"><a href="#t129">129</a></span><span class="t"><span class="str">        Args:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t130" class="pln"><span class="n"><a href="#t130">130</a></span><span class="t"><span class="str">            features (pd.DataFrame): preprocessed data.</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t131" class="pln"><span class="n"><a href="#t131">131</a></span><span class="t"><span class="str">        </span>&nbsp;</span><span class="r"></span></p>
-    <p id="t132" class="pln"><span class="n"><a href="#t132">132</a></span><span class="t"><span class="str">        Returns:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t133" class="pln"><span class="n"><a href="#t133">133</a></span><span class="t"><span class="str">            (List[int]): predicted targets.</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t134" class="pln"><span class="n"><a href="#t134">134</a></span><span class="t"><span class="str">        """</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t135" class="run"><span class="n"><a href="#t135">135</a></span><span class="t">        <span class="nam">print</span><span class="op">(</span><span class="str">"self._model---->"</span><span class="op">,</span> <span class="nam">self</span><span class="op">.</span><span class="nam">_model</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t136" class="pln"><span class="n"><a href="#t136">136</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t137" class="run"><span class="n"><a href="#t137">137</a></span><span class="t">        <span class="nam">prediction_data</span> <span class="op">=</span> <span class="nam">self</span><span class="op">.</span><span class="nam">_model</span><span class="op">.</span><span class="nam">predict</span><span class="op">(</span><span class="nam">features</span><span class="op">)</span><span class="op">.</span><span class="nam">tolist</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t138" class="mis show_mis"><span class="n"><a href="#t138">138</a></span><span class="t">        <span class="key">return</span> <span class="nam">prediction_data</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t109" class="mis show_mis"><span class="n"><a href="#t109">109</a></span><span class="t">        <span class="nam">model</span> <span class="op">=</span> <span class="nam">LogisticRegression</span><span class="op">(</span><span class="nam">class_weight</span><span class="op">=</span><span class="nam">class_weight</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t110" class="mis show_mis"><span class="n"><a href="#t110">110</a></span><span class="t">        <span class="nam">model</span><span class="op">.</span><span class="nam">fit</span><span class="op">(</span><span class="nam">features</span><span class="op">,</span> <span class="nam">y_train</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t111" class="pln"><span class="n"><a href="#t111">111</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t112" class="mis show_mis"><span class="n"><a href="#t112">112</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">_model</span> <span class="op">=</span> <span class="nam">model</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t113" class="pln"><span class="n"><a href="#t113">113</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t114" class="mis show_mis"><span class="n"><a href="#t114">114</a></span><span class="t">        <span class="key">return</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t115" class="pln"><span class="n"><a href="#t115">115</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t116" class="run"><span class="n"><a href="#t116">116</a></span><span class="t">    <span class="key">def</span> <span class="nam">predict</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t117" class="pln"><span class="n"><a href="#t117">117</a></span><span class="t">        <span class="nam">self</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t118" class="pln"><span class="n"><a href="#t118">118</a></span><span class="t">        <span class="nam">features</span><span class="op">:</span> <span class="nam">pd</span><span class="op">.</span><span class="nam">DataFrame</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t119" class="pln"><span class="n"><a href="#t119">119</a></span><span class="t">    <span class="op">)</span> <span class="op">-></span> <span class="nam">List</span><span class="op">[</span><span class="nam">int</span><span class="op">]</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t120" class="pln"><span class="n"><a href="#t120">120</a></span><span class="t">        <span class="str">"""</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t121" class="pln"><span class="n"><a href="#t121">121</a></span><span class="t"><span class="str">        Predict delays for new flights.</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t122" class="pln"><span class="n"><a href="#t122">122</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t123" class="pln"><span class="n"><a href="#t123">123</a></span><span class="t"><span class="str">        Args:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t124" class="pln"><span class="n"><a href="#t124">124</a></span><span class="t"><span class="str">            features (pd.DataFrame): preprocessed data.</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t125" class="pln"><span class="n"><a href="#t125">125</a></span><span class="t"><span class="str">        </span>&nbsp;</span><span class="r"></span></p>
+    <p id="t126" class="pln"><span class="n"><a href="#t126">126</a></span><span class="t"><span class="str">        Returns:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t127" class="pln"><span class="n"><a href="#t127">127</a></span><span class="t"><span class="str">            (List[int]): predicted targets.</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t128" class="pln"><span class="n"><a href="#t128">128</a></span><span class="t"><span class="str">        """</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t129" class="run"><span class="n"><a href="#t129">129</a></span><span class="t">        <span class="nam">print</span><span class="op">(</span><span class="str">"self._model---->"</span><span class="op">,</span> <span class="nam">self</span><span class="op">.</span><span class="nam">_model</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t130" class="pln"><span class="n"><a href="#t130">130</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t131" class="run"><span class="n"><a href="#t131">131</a></span><span class="t">        <span class="nam">prediction_data</span> <span class="op">=</span> <span class="nam">self</span><span class="op">.</span><span class="nam">_model</span><span class="op">.</span><span class="nam">predict</span><span class="op">(</span><span class="nam">features</span><span class="op">)</span><span class="op">.</span><span class="nam">tolist</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t132" class="mis show_mis"><span class="n"><a href="#t132">132</a></span><span class="t">        <span class="key">return</span> <span class="nam">prediction_data</span>&nbsp;</span><span class="r"></span></p>
 </div>
 <div id="footer">
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.5</a>,
-            created at 2026-01-14 16:30 -0500
+            created at 2026-01-14 16:49 -0500
         </p>
     </div>
 </div>

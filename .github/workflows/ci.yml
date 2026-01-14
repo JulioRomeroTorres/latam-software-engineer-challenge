@@ -1,7 +1,72 @@
 name: 'Continuous Integration'
 
 on:
-  ...
+  workflow_dispatch:
+    inputs:
+      source_branch:
+        description: 'Source branch to merge FROM'
+        required: true
+        default: 'develop'
+      target_branch:
+        description: 'Target branch to merge INTO'
+        required: true
+        default: 'main'
+
+# Permisos necesarios
+permissions:
+  contents: write
+  pull-requests: write
+  checks: read
 
 jobs:
-  ...
+  auto-merge:
+    runs-on: ubuntu-latest
+    
+    steps:
+    # Paso 1: Checkout del código
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        token: ${{ secrets.GH_TOKEN }}
+    
+    - name: Setup Git
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "github-actions@github.com"
+    
+    - name: Determine branches for workflow_dispatch
+      if: github.event_name == 'workflow_dispatch'
+      run: |
+        echo "SOURCE_BRANCH=${{ github.event.inputs.source_branch }}" >> $GITHUB_ENV
+        echo "TARGET_BRANCH=${{ github.event.inputs.target_branch }}" >> $GITHUB_ENV
+    
+    - name: Determine branches for push
+      if: github.event_name == 'push'
+      run: |
+        echo "SOURCE_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
+        echo "TARGET_BRANCH=main" >> $GITHUB_ENV
+    
+    # Paso 5: Hacer el merge
+    - name: Merge branches
+      run: |
+        echo "Merging $SOURCE_BRANCH into $TARGET_BRANCH"
+        
+        # Fetch todas las ramas
+        git fetch origin
+        
+        # Checkout a la rama target
+        git checkout $TARGET_BRANCH
+        
+        # Pull los últimos cambios
+        git pull origin $TARGET_BRANCH
+        
+        # Intentar merge
+        git merge origin/$SOURCE_BRANCH --no-ff -m "Merge $SOURCE_BRANCH into $TARGET_BRANCH via GitHub Actions"
+        
+        # Push los cambios
+        git push origin $TARGET_BRANCH
+        
+      env:
+        SOURCE_BRANCH: ${{ env.SOURCE_BRANCH }}
+        TARGET_BRANCH: ${{ env.TARGET_BRANCH }}

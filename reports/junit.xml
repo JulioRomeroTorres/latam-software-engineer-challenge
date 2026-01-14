@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="4" time="15.782" timestamp="2026-01-14T16:29:55.696907" hostname="DESKTOP-TDRN8V2"><testcase classname="tests.model.test_model.TestModel" name="test_model_fit" time="3.751"><failure message="AssertionError: assert 1.0 &lt; 0.6">self = &lt;tests.model.test_model.TestModel testMethod=test_model_fit&gt;
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="4" time="19.664" timestamp="2026-01-14T16:49:29.937087" hostname="DESKTOP-TDRN8V2"><testcase classname="tests.model.test_model.TestModel" name="test_model_fit" time="4.678"><failure message="ValueError: If using all scalar values, you must pass an index">self = &lt;tests.model.test_model.TestModel testMethod=test_model_fit&gt;
 
     def test_model_fit(
         self
@@ -8,24 +8,69 @@
             target_column="delay"
         )
     
-        _, features_validation, _, target_validation = train_test_split(features, target, test_size = 0.33, random_state = 42)
+        feature_training, features_validation, target_training, target_validation = train_test_split(features, target, test_size = 0.33, random_state = 42)
     
         self.model.fit(
-            features=features,
-            target=target
+            features=feature_training,
+&gt;           target=pd.DataFrame({'delay': target_training})
         )
-    
-        predicted_target = self.model._model.predict(
-            features_validation
-        )
-    
-        report = classification_report(target_validation, predicted_target, output_dict=True)
-        print(report)
-    
-&gt;       assert report["0"]["recall"] &lt; 0.60
-E       AssertionError: assert 1.0 &lt; 0.6
 
-tests/model/test_model.py:85: AssertionError</failure></testcase><testcase classname="tests.model.test_model.TestModel" name="test_model_predict" time="3.251"><failure message="AttributeError: 'NoneType' object has no attribute 'predict'">self = &lt;tests.model.test_model.TestModel testMethod=test_model_predict&gt;
+tests/model/test_model.py:75: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv/lib/python3.9/site-packages/pandas/core/frame.py:614: in __init__
+    mgr = dict_to_mgr(data, index, columns, dtype=dtype, copy=copy, typ=manager)
+.venv/lib/python3.9/site-packages/pandas/core/internals/construction.py:464: in dict_to_mgr
+    return arrays_to_mgr(
+.venv/lib/python3.9/site-packages/pandas/core/internals/construction.py:119: in arrays_to_mgr
+    index = _extract_index(arrays)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+data = [       delay
+65         0
+11660      1
+66641      0
+6126       0
+59160      0
+...      ...
+37194      1
+6265       0
+54886      1
+860        1
+15795      0
+
+[45698 rows x 1 columns]]
+
+    def _extract_index(data) -&gt; Index:
+        """
+        Try to infer an Index from the passed data, raise ValueError on failure.
+        """
+        index = None
+        if len(data) == 0:
+            index = Index([])
+        elif len(data) &gt; 0:
+            raw_lengths = []
+            indexes: list[list[Hashable] | Index] = []
+    
+            have_raw_arrays = False
+            have_series = False
+            have_dicts = False
+    
+            for val in data:
+                if isinstance(val, ABCSeries):
+                    have_series = True
+                    indexes.append(val.index)
+                elif isinstance(val, dict):
+                    have_dicts = True
+                    indexes.append(list(val.keys()))
+                elif is_list_like(val) and getattr(val, "ndim", 1) == 1:
+                    have_raw_arrays = True
+                    raw_lengths.append(len(val))
+    
+            if not indexes and not raw_lengths:
+&gt;               raise ValueError("If using all scalar values, you must pass an index")
+E               ValueError: If using all scalar values, you must pass an index
+
+.venv/lib/python3.9/site-packages/pandas/core/internals/construction.py:625: ValueError</failure></testcase><testcase classname="tests.model.test_model.TestModel" name="test_model_predict" time="3.986"><failure message="AttributeError: 'NoneType' object has no attribute 'predict'">self = &lt;tests.model.test_model.TestModel testMethod=test_model_predict&gt;
 
     def test_model_predict(
         self
@@ -41,7 +86,7 @@ tests/model/test_model.py:85: AssertionError</failure></testcase><testcase class
 tests/model/test_model.py:98: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-self = &lt;challenge.model.DelayModel object at 0x7ffb158b1a60&gt;
+self = &lt;challenge.model.DelayModel object at 0x7f3710e37b80&gt;
 features =        OPERA_Latin American Wings  MES_7  MES_10  OPERA_Grupo LATAM  MES_12  TIPOVUELO_I  MES_4  MES_11  OPERA_Sky Air... 0                  0       1            1      0       0                  0               0
 
 [68206 rows x 10 columns]
@@ -64,4 +109,4 @@ features =        OPERA_Latin American Wings  MES_7  MES_10  OPERA_Grupo LATAM  
 &gt;       prediction_data = self._model.predict(features).tolist()
 E       AttributeError: 'NoneType' object has no attribute 'predict'
 
-challenge/model.py:137: AttributeError</failure></testcase><testcase classname="tests.model.test_model.TestModel" name="test_model_preprocess_for_serving" time="4.179" /><testcase classname="tests.model.test_model.TestModel" name="test_model_preprocess_for_training" time="3.400" /></testsuite></testsuites>
+challenge/model.py:131: AttributeError</failure></testcase><testcase classname="tests.model.test_model.TestModel" name="test_model_preprocess_for_serving" time="3.971" /><testcase classname="tests.model.test_model.TestModel" name="test_model_preprocess_for_training" time="3.535" /></testsuite></testsuites>
