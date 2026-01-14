@@ -1,11 +1,12 @@
 import pandas as pd
 
 import numpy as np
-import datetime
+from datetime import datetime
 from typing import Tuple, Union, List, Dict
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, classification_report
+import xgboost as xgb
 
 DEFAULT_THRESHOLD_MINUTES = 15
 
@@ -61,11 +62,19 @@ class DelayModel:
         )
 
         data['min_diff'] = data.apply(self.get_min_diff, axis = 1)
-        data['delay'] = np.where(data['min_diff'] > self.threshold_in_minutes, 1, 0)
 
-        return features,data[target_column]
+        features = features[self.top_features_names]
 
-    def determinate_weight_class(target: pd.Series)-> Dict[int, int]:
+        if target_column is None:
+            return features
+        
+        target = pd.DataFrame({
+            target_column: np.where(data['min_diff'] > self.threshold_in_minutes, 1, 0)
+        })
+
+        return features, target
+
+    def determinate_weight_class(self, target: pd.Series)-> Dict[int, int]:
         total_len = len(target)
         mapper_class_weight = {}
 
@@ -94,13 +103,18 @@ class DelayModel:
             features (pd.DataFrame): preprocessed data.
             target (pd.DataFrame): target.
         """
-
-        x_train, _, y_train, _ = train_test_split(features, target, test_size = 0.33, random_state = 42)
-
+        y_train = target['delay']
         class_weight = self.determinate_weight_class(y_train)
-        model = LogisticRegression(class_weight=class_weight)
 
-        model.fit(x_train, y_train)
+        print("columns", features.columns)
+
+        #model = xgb.XGBClassifier(random_state=42, learning_rate=0.01, scale_pos_weight = class_weight[1]/class_weight[0],
+        #                          max_depth=3, n_estimators=100)
+        #model.fit(features, y_train)
+
+        model = LogisticRegression(class_weight=class_weight)
+        model.fit(features, y_train)
+
         self._model = model
 
         return
@@ -118,6 +132,7 @@ class DelayModel:
         Returns:
             (List[int]): predicted targets.
         """
+        print("self._model---->", self._model)
 
         prediction_data = self._model.predict(features).tolist()
         return prediction_data

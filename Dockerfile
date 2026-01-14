@@ -21,8 +21,8 @@ FROM runtime-environment
 # copy the whole project except what is in .dockerignore
 ARG COMPOSER_UID=999
 ARG COMPOSER_GID=0
-COPY --chown=${COMPOSER_UID}:${COMPOSER_GID} . .
+COPY --chown=${COMPOSER_UID}:${COMPOSER_GID} challenge/api.py .
 
 EXPOSE 8080
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8080"]
+CMD ["uvicorn", "api.app", "runserver", "0.0.0.0:8080"]
