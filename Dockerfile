@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.2
-FROM python:latest as runtime-environment
+FROM python:3.10 as runtime-environment
 
 
 COPY requirements.txt /tmp/requirements.txt
