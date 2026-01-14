@@ -26,6 +26,8 @@ steps:
     '--service-account', '${_SERVICE_ACCOUNT}',
     '--project', '${_PROJECT_ID}',
     '--region', '${_REGION}',
+    '--memory', '2Gi',
+    '--cpu', '2',
     '--allow-unauthenticated'
   ]
 
