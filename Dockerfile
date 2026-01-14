@@ -22,6 +22,7 @@ FROM runtime-environment
 ARG COMPOSER_UID=999
 ARG COMPOSER_GID=0
 COPY --chown=${COMPOSER_UID}:${COMPOSER_GID} challenge/api.py .
+COPY --chown=${COMPOSER_UID}:${COMPOSER_GID} challenge/artifacts/ ./artifacts/
 
 EXPOSE 8080
 

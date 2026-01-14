@@ -1,112 +1,209 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="4" time="19.664" timestamp="2026-01-14T16:49:29.937087" hostname="DESKTOP-TDRN8V2"><testcase classname="tests.model.test_model.TestModel" name="test_model_fit" time="4.678"><failure message="ValueError: If using all scalar values, you must pass an index">self = &lt;tests.model.test_model.TestModel testMethod=test_model_fit&gt;
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="4" time="1.719" timestamp="2026-01-14T17:24:11.667518" hostname="DESKTOP-TDRN8V2"><testcase classname="tests.api.test_api.TestBatchPipeline" name="test_should_failed_unkown_column_1" time="0.008"><failure message="AttributeError: module 'anyio' has no attribute 'start_blocking_portal'">self = &lt;tests.api.test_api.TestBatchPipeline testMethod=test_should_failed_unkown_column_1&gt;
 
-    def test_model_fit(
-        self
-    ):
-        features, target = self.model.preprocess(
-            data=self.data,
-            target_column="delay"
-        )
+    def test_should_failed_unkown_column_1(self):
+        data = {
+            "flights": [
+                {
+                    "OPERA": "Aerolineas Argentinas",
+                    "TIPOVUELO": "N",
+                    "MES": 13
+                }
+            ]
+        }
+        # when("xgboost.XGBClassifier").predict(ANY).thenReturn(np.array([0]))# change this line to the model of chosing
+&gt;       response = self.client.post("/predict", json=data)
+
+tests/api/test_api.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv/lib/python3.9/site-packages/requests/sessions.py:637: in post
+    return self.request("POST", url, data=data, json=json, **kwargs)
+.venv/lib/python3.9/site-packages/starlette/testclient.py:473: in request
+    return super().request(
+.venv/lib/python3.9/site-packages/requests/sessions.py:589: in request
+    resp = self.send(prep, **send_kwargs)
+.venv/lib/python3.9/site-packages/requests/sessions.py:703: in send
+    r = adapter.send(request, **kwargs)
+.venv/lib/python3.9/site-packages/starlette/testclient.py:267: in send
+    raise exc
+.venv/lib/python3.9/site-packages/starlette/testclient.py:262: in send
+    with self.portal_factory() as portal:
+/usr/lib/python3.9/contextlib.py:117: in __enter__
+    return next(self.gen)
+.venv/lib/python3.9/site-packages/starlette/testclient.py:450: in _portal_factory
+    with anyio.start_blocking_portal(**self.async_backend) as portal:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+attr = 'start_blocking_portal'
+
+    def __getattr__(attr: str) -&gt; type[BrokenWorkerInterpreter]:
+        """Support deprecated aliases."""
+        if attr == "BrokenWorkerIntepreter":
+            import warnings
     
-        feature_training, features_validation, target_training, target_validation = train_test_split(features, target, test_size = 0.33, random_state = 42)
+            warnings.warn(
+                "The 'BrokenWorkerIntepreter' alias is deprecated, use 'BrokenWorkerInterpreter' instead.",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+            return BrokenWorkerInterpreter
     
-        self.model.fit(
-            features=feature_training,
-&gt;           target=pd.DataFrame({'delay': target_training})
-        )
+&gt;       raise AttributeError(f"module {__name__!r} has no attribute {attr!r}")
+E       AttributeError: module 'anyio' has no attribute 'start_blocking_portal'
 
-tests/model/test_model.py:75: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-.venv/lib/python3.9/site-packages/pandas/core/frame.py:614: in __init__
-    mgr = dict_to_mgr(data, index, columns, dtype=dtype, copy=copy, typ=manager)
-.venv/lib/python3.9/site-packages/pandas/core/internals/construction.py:464: in dict_to_mgr
-    return arrays_to_mgr(
-.venv/lib/python3.9/site-packages/pandas/core/internals/construction.py:119: in arrays_to_mgr
-    index = _extract_index(arrays)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv/lib/python3.9/site-packages/anyio/__init__.py:111: AttributeError</failure></testcase><testcase classname="tests.api.test_api.TestBatchPipeline" name="test_should_failed_unkown_column_2" time="0.003"><failure message="AttributeError: module 'anyio' has no attribute 'start_blocking_portal'">self = &lt;tests.api.test_api.TestBatchPipeline testMethod=test_should_failed_unkown_column_2&gt;
 
-data = [       delay
-65         0
-11660      1
-66641      0
-6126       0
-59160      0
-...      ...
-37194      1
-6265       0
-54886      1
-860        1
-15795      0
+    def test_should_failed_unkown_column_2(self):
+        data = {
+            "flights": [
+                {
+                    "OPERA": "Aerolineas Argentinas",
+                    "TIPOVUELO": "O",
+                    "MES": 13
+                }
+            ]
+        }
+        # when("xgboost.XGBClassifier").predict(ANY).thenReturn(np.array([0]))# change this line to the model of chosing
+&gt;       response = self.client.post("/predict", json=data)
 
-[45698 rows x 1 columns]]
+tests/api/test_api.py:52: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv/lib/python3.9/site-packages/requests/sessions.py:637: in post
+    return self.request("POST", url, data=data, json=json, **kwargs)
+.venv/lib/python3.9/site-packages/starlette/testclient.py:473: in request
+    return super().request(
+.venv/lib/python3.9/site-packages/requests/sessions.py:589: in request
+    resp = self.send(prep, **send_kwargs)
+.venv/lib/python3.9/site-packages/requests/sessions.py:703: in send
+    r = adapter.send(request, **kwargs)
+.venv/lib/python3.9/site-packages/starlette/testclient.py:267: in send
+    raise exc
+.venv/lib/python3.9/site-packages/starlette/testclient.py:262: in send
+    with self.portal_factory() as portal:
+/usr/lib/python3.9/contextlib.py:117: in __enter__
+    return next(self.gen)
+.venv/lib/python3.9/site-packages/starlette/testclient.py:450: in _portal_factory
+    with anyio.start_blocking_portal(**self.async_backend) as portal:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-    def _extract_index(data) -&gt; Index:
-        """
-        Try to infer an Index from the passed data, raise ValueError on failure.
-        """
-        index = None
-        if len(data) == 0:
-            index = Index([])
-        elif len(data) &gt; 0:
-            raw_lengths = []
-            indexes: list[list[Hashable] | Index] = []
+attr = 'start_blocking_portal'
+
+    def __getattr__(attr: str) -&gt; type[BrokenWorkerInterpreter]:
+        """Support deprecated aliases."""
+        if attr == "BrokenWorkerIntepreter":
+            import warnings
     
-            have_raw_arrays = False
-            have_series = False
-            have_dicts = False
+            warnings.warn(
+                "The 'BrokenWorkerIntepreter' alias is deprecated, use 'BrokenWorkerInterpreter' instead.",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+            return BrokenWorkerInterpreter
     
-            for val in data:
-                if isinstance(val, ABCSeries):
-                    have_series = True
-                    indexes.append(val.index)
-                elif isinstance(val, dict):
-                    have_dicts = True
-                    indexes.append(list(val.keys()))
-                elif is_list_like(val) and getattr(val, "ndim", 1) == 1:
-                    have_raw_arrays = True
-                    raw_lengths.append(len(val))
+&gt;       raise AttributeError(f"module {__name__!r} has no attribute {attr!r}")
+E       AttributeError: module 'anyio' has no attribute 'start_blocking_portal'
+
+.venv/lib/python3.9/site-packages/anyio/__init__.py:111: AttributeError</failure></testcase><testcase classname="tests.api.test_api.TestBatchPipeline" name="test_should_failed_unkown_column_3" time="0.003"><failure message="AttributeError: module 'anyio' has no attribute 'start_blocking_portal'">self = &lt;tests.api.test_api.TestBatchPipeline testMethod=test_should_failed_unkown_column_3&gt;
+
+    def test_should_failed_unkown_column_3(self):
+        data = {
+            "flights": [
+                {
+                    "OPERA": "Argentinas",
+                    "TIPOVUELO": "O",
+                    "MES": 13
+                }
+            ]
+        }
+        # when("xgboost.XGBClassifier").predict(ANY).thenReturn(np.array([0]))
+&gt;       response = self.client.post("/predict", json=data)
+
+tests/api/test_api.py:66: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv/lib/python3.9/site-packages/requests/sessions.py:637: in post
+    return self.request("POST", url, data=data, json=json, **kwargs)
+.venv/lib/python3.9/site-packages/starlette/testclient.py:473: in request
+    return super().request(
+.venv/lib/python3.9/site-packages/requests/sessions.py:589: in request
+    resp = self.send(prep, **send_kwargs)
+.venv/lib/python3.9/site-packages/requests/sessions.py:703: in send
+    r = adapter.send(request, **kwargs)
+.venv/lib/python3.9/site-packages/starlette/testclient.py:267: in send
+    raise exc
+.venv/lib/python3.9/site-packages/starlette/testclient.py:262: in send
+    with self.portal_factory() as portal:
+/usr/lib/python3.9/contextlib.py:117: in __enter__
+    return next(self.gen)
+.venv/lib/python3.9/site-packages/starlette/testclient.py:450: in _portal_factory
+    with anyio.start_blocking_portal(**self.async_backend) as portal:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+attr = 'start_blocking_portal'
+
+    def __getattr__(attr: str) -&gt; type[BrokenWorkerInterpreter]:
+        """Support deprecated aliases."""
+        if attr == "BrokenWorkerIntepreter":
+            import warnings
     
-            if not indexes and not raw_lengths:
-&gt;               raise ValueError("If using all scalar values, you must pass an index")
-E               ValueError: If using all scalar values, you must pass an index
-
-.venv/lib/python3.9/site-packages/pandas/core/internals/construction.py:625: ValueError</failure></testcase><testcase classname="tests.model.test_model.TestModel" name="test_model_predict" time="3.986"><failure message="AttributeError: 'NoneType' object has no attribute 'predict'">self = &lt;tests.model.test_model.TestModel testMethod=test_model_predict&gt;
-
-    def test_model_predict(
-        self
-    ):
-        features = self.model.preprocess(
-            data=self.data
-        )
+            warnings.warn(
+                "The 'BrokenWorkerIntepreter' alias is deprecated, use 'BrokenWorkerInterpreter' instead.",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+            return BrokenWorkerInterpreter
     
-&gt;       predicted_targets = self.model.predict(
-            features=features
-        )
+&gt;       raise AttributeError(f"module {__name__!r} has no attribute {attr!r}")
+E       AttributeError: module 'anyio' has no attribute 'start_blocking_portal'
 
-tests/model/test_model.py:98: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv/lib/python3.9/site-packages/anyio/__init__.py:111: AttributeError</failure></testcase><testcase classname="tests.api.test_api.TestBatchPipeline" name="test_should_get_predict" time="0.003"><failure message="AttributeError: module 'anyio' has no attribute 'start_blocking_portal'">self = &lt;tests.api.test_api.TestBatchPipeline testMethod=test_should_get_predict&gt;
 
-self = &lt;challenge.model.DelayModel object at 0x7f3710e37b80&gt;
-features =        OPERA_Latin American Wings  MES_7  MES_10  OPERA_Grupo LATAM  MES_12  TIPOVUELO_I  MES_4  MES_11  OPERA_Sky Air... 0                  0       1            1      0       0                  0               0
+    def test_should_get_predict(self):
+        data = {
+            "flights": [
+                {
+                    "OPERA": "Aerolineas Argentinas",
+                    "TIPOVUELO": "N",
+                    "MES": 3
+                }
+            ]
+        }
+        # when("xgboost.XGBClassifier").predict(ANY).thenReturn(np.array([0])) # change this line to the model of chosing
+&gt;       response = self.client.post("/predict", json=data)
 
-[68206 rows x 10 columns]
+tests/api/test_api.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv/lib/python3.9/site-packages/requests/sessions.py:637: in post
+    return self.request("POST", url, data=data, json=json, **kwargs)
+.venv/lib/python3.9/site-packages/starlette/testclient.py:473: in request
+    return super().request(
+.venv/lib/python3.9/site-packages/requests/sessions.py:589: in request
+    resp = self.send(prep, **send_kwargs)
+.venv/lib/python3.9/site-packages/requests/sessions.py:703: in send
+    r = adapter.send(request, **kwargs)
+.venv/lib/python3.9/site-packages/starlette/testclient.py:267: in send
+    raise exc
+.venv/lib/python3.9/site-packages/starlette/testclient.py:262: in send
+    with self.portal_factory() as portal:
+/usr/lib/python3.9/contextlib.py:117: in __enter__
+    return next(self.gen)
+.venv/lib/python3.9/site-packages/starlette/testclient.py:450: in _portal_factory
+    with anyio.start_blocking_portal(**self.async_backend) as portal:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-    def predict(
-        self,
-        features: pd.DataFrame
-    ) -&gt; List[int]:
-        """
-        Predict delays for new flights.
+attr = 'start_blocking_portal'
+
+    def __getattr__(attr: str) -&gt; type[BrokenWorkerInterpreter]:
+        """Support deprecated aliases."""
+        if attr == "BrokenWorkerIntepreter":
+            import warnings
     
-        Args:
-            features (pd.DataFrame): preprocessed data.
+            warnings.warn(
+                "The 'BrokenWorkerIntepreter' alias is deprecated, use 'BrokenWorkerInterpreter' instead.",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+            return BrokenWorkerInterpreter
     
-        Returns:
-            (List[int]): predicted targets.
-        """
-        print("self._model----&gt;", self._model)
-    
-&gt;       prediction_data = self._model.predict(features).tolist()
-E       AttributeError: 'NoneType' object has no attribute 'predict'
+&gt;       raise AttributeError(f"module {__name__!r} has no attribute {attr!r}")
+E       AttributeError: module 'anyio' has no attribute 'start_blocking_portal'
 
-challenge/model.py:131: AttributeError</failure></testcase><testcase classname="tests.model.test_model.TestModel" name="test_model_preprocess_for_serving" time="3.971" /><testcase classname="tests.model.test_model.TestModel" name="test_model_preprocess_for_training" time="3.535" /></testsuite></testsuites>
+.venv/lib/python3.9/site-packages/anyio/__init__.py:111: AttributeError</failure></testcase></testsuite></testsuites>
