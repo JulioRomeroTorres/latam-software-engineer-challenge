@@ -28,7 +28,7 @@ class TestModel(unittest.TestCase):
     def setUp(self) -> None:
         super().setUp()
         self.model = DelayModel()
-        self.data = pd.read_csv(filepath_or_buffer="../data/data.csv")
+        self.data = pd.read_csv(filepath_or_buffer="./data/data.csv")
         
 
     def test_model_preprocess_for_training(
@@ -68,11 +68,11 @@ class TestModel(unittest.TestCase):
             target_column="delay"
         )
 
-        _, features_validation, _, target_validation = train_test_split(features, target, test_size = 0.33, random_state = 42)
+        feature_training, features_validation, target_training, target_validation = train_test_split(features, target, test_size = 0.33, random_state = 42)
 
         self.model.fit(
-            features=features,
-            target=target
+            features=feature_training,
+            target=pd.DataFrame({'delay': target_training})
         )
 
         predicted_target = self.model._model.predict(
@@ -80,7 +80,8 @@ class TestModel(unittest.TestCase):
         )
 
         report = classification_report(target_validation, predicted_target, output_dict=True)
-        
+        print(report)
+
         assert report["0"]["recall"] < 0.60
         assert report["0"]["f1-score"] < 0.70
         assert report["1"]["recall"] > 0.60

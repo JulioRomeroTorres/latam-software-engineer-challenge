@@ -1,0 +1,78 @@
+name: 'Continuous Delivery'
+
+on:
+  push:
+    branches:
+      - develop
+      - release
+      - master
+
+jobs:
+  set-env:
+    runs-on: ubuntu-latest
+    outputs:
+      env_name: ${{ steps.mapper.outputs.env_name }}
+    steps:
+      - id: mapper
+        run: |
+          case "${{ github.ref_name }}" in
+            develop)
+              echo "env_name=dev" >> $GITHUB_OUTPUT
+              ;;
+            release)
+              echo "env_name=test" >> $GITHUB_OUTPUT
+              ;;
+            master)
+              echo "env_name=prod" >> $GITHUB_OUTPUT
+              ;;
+            *)
+              echo "env_name=unknown" >> $GITHUB_OUTPUT
+              exit 1
+              ;;
+          esac
+
+  deploy:
+    needs: set-env
+    name:  Deploy to ${{ github.ref_name }} environment
+    runs-on: ubuntu-latest
+    
+    environment:
+      name: ${{ needs.set-env.outputs.env_name }}
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Verify deployment information
+      run: |
+        echo "Deploying to ${{ github.github.ref_name }} environment"
+        echo "Project ID: ${{ vars.PROJECT_ID }}"
+        echo "Registry: ${{ vars.CONT_REGISTRY_NAME }}"
+        echo "Repository: ${{ vars.CONT_REPOSITORY_NAME }}"
+        echo "Image name: ${{ vars.CONT_IMAGE_NAME }}"
+        echo "Region: ${{ vars.REGION }}"
+    
+    - name: Google Auth
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ secrets.GCP_SA_KEY }}'
+    
+    - name: Set up Cloud SDK
+      uses: 'google-github-actions/setup-gcloud@v1'
+    
+    - name: Prepate cloud build context
+      run: |
+        # Crear directorio temporal
+        mkdir -p cloudbuild_context
+                
+        rsync -av --exclude-from=.dockerignore . cloudbuild_context/
+
+        ls -la cloudbuild_context
+
+    - name: Trigger Cloud Build
+      run: |
+
+        tar -czf context.tar.gz -C cloudbuild_context .
+        gcloud builds submit context.tar.gz --project=${{ vars.PROJECT_ID }} \
+          --substitutions=_CONT_REGISTRY_NAME=${{ vars.CONT_REGISTRY_NAME }},_PROJECT_ID=${{ vars.PROJECT_ID }},_CONT_REPOSITORY_NAME=${{ vars.CONT_REPOSITORY_NAME }},_CONT_IMAGE_NAME=${{ vars.CONT_IMAGE_NAME }},_SERVICE_ACCOUNT=${{ vars.SERVICE_ACCOUNT }},_REGION=${{ vars.REGION }} \
+          --config=cloudbuild.yaml --service-account=projects/${{ vars.PROJECT_ID }}/serviceAccounts/${{ vars.SERVICE_ACCOUNT }}
