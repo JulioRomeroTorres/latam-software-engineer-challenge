@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="4" time="1.719" timestamp="2026-01-14T17:24:11.667518" hostname="DESKTOP-TDRN8V2"><testcase classname="tests.api.test_api.TestBatchPipeline" name="test_should_failed_unkown_column_1" time="0.008"><failure message="AttributeError: module 'anyio' has no attribute 'start_blocking_portal'">self = &lt;tests.api.test_api.TestBatchPipeline testMethod=test_should_failed_unkown_column_1&gt;
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="4" time="2.008" timestamp="2026-01-14T17:32:10.355962" hostname="DESKTOP-TDRN8V2"><testcase classname="tests.api.test_api.TestBatchPipeline" name="test_should_failed_unkown_column_1" time="0.138"><failure message="KeyError: 'model'">self = &lt;tests.api.test_api.TestBatchPipeline testMethod=test_should_failed_unkown_column_1&gt;
 
     def test_should_failed_unkown_column_1(self):
         data = {
@@ -25,32 +25,57 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
     r = adapter.send(request, **kwargs)
 .venv/lib/python3.9/site-packages/starlette/testclient.py:267: in send
     raise exc
-.venv/lib/python3.9/site-packages/starlette/testclient.py:262: in send
-    with self.portal_factory() as portal:
-/usr/lib/python3.9/contextlib.py:117: in __enter__
-    return next(self.gen)
-.venv/lib/python3.9/site-packages/starlette/testclient.py:450: in _portal_factory
-    with anyio.start_blocking_portal(**self.async_backend) as portal:
+.venv/lib/python3.9/site-packages/starlette/testclient.py:264: in send
+    portal.call(self.app, scope, receive, send)
+.venv/lib/python3.9/site-packages/anyio/from_thread.py:277: in call
+    return cast(T_Retval, self.start_task_soon(func, *args).result())
+/usr/lib/python3.9/concurrent/futures/_base.py:445: in result
+    return self.__get_result()
+/usr/lib/python3.9/concurrent/futures/_base.py:390: in __get_result
+    raise self._exception
+.venv/lib/python3.9/site-packages/anyio/from_thread.py:217: in _call_func
+    retval = await retval
+.venv/lib/python3.9/site-packages/fastapi/applications.py:270: in __call__
+    await super().__call__(scope, receive, send)
+.venv/lib/python3.9/site-packages/starlette/applications.py:124: in __call__
+    await self.middleware_stack(scope, receive, send)
+.venv/lib/python3.9/site-packages/starlette/middleware/errors.py:184: in __call__
+    raise exc
+.venv/lib/python3.9/site-packages/starlette/middleware/errors.py:162: in __call__
+    await self.app(scope, receive, _send)
+.venv/lib/python3.9/site-packages/starlette/middleware/exceptions.py:75: in __call__
+    raise exc
+.venv/lib/python3.9/site-packages/starlette/middleware/exceptions.py:64: in __call__
+    await self.app(scope, receive, sender)
+.venv/lib/python3.9/site-packages/fastapi/middleware/asyncexitstack.py:21: in __call__
+    raise e
+.venv/lib/python3.9/site-packages/fastapi/middleware/asyncexitstack.py:18: in __call__
+    await self.app(scope, receive, send)
+.venv/lib/python3.9/site-packages/starlette/routing.py:680: in __call__
+    await route.handle(scope, receive, send)
+.venv/lib/python3.9/site-packages/starlette/routing.py:275: in handle
+    await self.app(scope, receive, send)
+.venv/lib/python3.9/site-packages/starlette/routing.py:65: in app
+    response = await func(request)
+.venv/lib/python3.9/site-packages/fastapi/routing.py:235: in app
+    raw_response = await run_endpoint_function(
+.venv/lib/python3.9/site-packages/fastapi/routing.py:161: in run_endpoint_function
+    return await dependant.call(**values)
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-attr = 'start_blocking_portal'
+request = InputPrediction(flights=[FlightFeatures(OPERA='Aerolineas Argentinas', TIPOVUELO='N', MES='13')])
 
-    def __getattr__(attr: str) -&gt; type[BrokenWorkerInterpreter]:
-        """Support deprecated aliases."""
-        if attr == "BrokenWorkerIntepreter":
-            import warnings
+    @app.post("/predict", status_code=200)
+    async def post_predict(request: InputPrediction) -&gt; dict:
     
-            warnings.warn(
-                "The 'BrokenWorkerIntepreter' alias is deprecated, use 'BrokenWorkerInterpreter' instead.",
-                DeprecationWarning,
-                stacklevel=2,
-            )
-            return BrokenWorkerInterpreter
+        list_features = request.flights
+        features_df = [ feature.dict() for feature in list_features]
+        features_df = convert_list_to_df(features_df)
     
-&gt;       raise AttributeError(f"module {__name__!r} has no attribute {attr!r}")
-E       AttributeError: module 'anyio' has no attribute 'start_blocking_portal'
+&gt;       predictions = catalog["model"].predict(features_df)
+E       KeyError: 'model'
 
-.venv/lib/python3.9/site-packages/anyio/__init__.py:111: AttributeError</failure></testcase><testcase classname="tests.api.test_api.TestBatchPipeline" name="test_should_failed_unkown_column_2" time="0.003"><failure message="AttributeError: module 'anyio' has no attribute 'start_blocking_portal'">self = &lt;tests.api.test_api.TestBatchPipeline testMethod=test_should_failed_unkown_column_2&gt;
+challenge/api.py:85: KeyError</failure></testcase><testcase classname="tests.api.test_api.TestBatchPipeline" name="test_should_failed_unkown_column_2" time="0.041"><failure message="KeyError: 'model'">self = &lt;tests.api.test_api.TestBatchPipeline testMethod=test_should_failed_unkown_column_2&gt;
 
     def test_should_failed_unkown_column_2(self):
         data = {
@@ -77,32 +102,57 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
     r = adapter.send(request, **kwargs)
 .venv/lib/python3.9/site-packages/starlette/testclient.py:267: in send
     raise exc
-.venv/lib/python3.9/site-packages/starlette/testclient.py:262: in send
-    with self.portal_factory() as portal:
-/usr/lib/python3.9/contextlib.py:117: in __enter__
-    return next(self.gen)
-.venv/lib/python3.9/site-packages/starlette/testclient.py:450: in _portal_factory
-    with anyio.start_blocking_portal(**self.async_backend) as portal:
+.venv/lib/python3.9/site-packages/starlette/testclient.py:264: in send
+    portal.call(self.app, scope, receive, send)
+.venv/lib/python3.9/site-packages/anyio/from_thread.py:277: in call
+    return cast(T_Retval, self.start_task_soon(func, *args).result())
+/usr/lib/python3.9/concurrent/futures/_base.py:445: in result
+    return self.__get_result()
+/usr/lib/python3.9/concurrent/futures/_base.py:390: in __get_result
+    raise self._exception
+.venv/lib/python3.9/site-packages/anyio/from_thread.py:217: in _call_func
+    retval = await retval
+.venv/lib/python3.9/site-packages/fastapi/applications.py:270: in __call__
+    await super().__call__(scope, receive, send)
+.venv/lib/python3.9/site-packages/starlette/applications.py:124: in __call__
+    await self.middleware_stack(scope, receive, send)
+.venv/lib/python3.9/site-packages/starlette/middleware/errors.py:184: in __call__
+    raise exc
+.venv/lib/python3.9/site-packages/starlette/middleware/errors.py:162: in __call__
+    await self.app(scope, receive, _send)
+.venv/lib/python3.9/site-packages/starlette/middleware/exceptions.py:75: in __call__
+    raise exc
+.venv/lib/python3.9/site-packages/starlette/middleware/exceptions.py:64: in __call__
+    await self.app(scope, receive, sender)
+.venv/lib/python3.9/site-packages/fastapi/middleware/asyncexitstack.py:21: in __call__
+    raise e
+.venv/lib/python3.9/site-packages/fastapi/middleware/asyncexitstack.py:18: in __call__
+    await self.app(scope, receive, send)
+.venv/lib/python3.9/site-packages/starlette/routing.py:680: in __call__
+    await route.handle(scope, receive, send)
+.venv/lib/python3.9/site-packages/starlette/routing.py:275: in handle
+    await self.app(scope, receive, send)
+.venv/lib/python3.9/site-packages/starlette/routing.py:65: in app
+    response = await func(request)
+.venv/lib/python3.9/site-packages/fastapi/routing.py:235: in app
+    raw_response = await run_endpoint_function(
+.venv/lib/python3.9/site-packages/fastapi/routing.py:161: in run_endpoint_function
+    return await dependant.call(**values)
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-attr = 'start_blocking_portal'
+request = InputPrediction(flights=[FlightFeatures(OPERA='Aerolineas Argentinas', TIPOVUELO='O', MES='13')])
 
-    def __getattr__(attr: str) -&gt; type[BrokenWorkerInterpreter]:
-        """Support deprecated aliases."""
-        if attr == "BrokenWorkerIntepreter":
-            import warnings
+    @app.post("/predict", status_code=200)
+    async def post_predict(request: InputPrediction) -&gt; dict:
     
-            warnings.warn(
-                "The 'BrokenWorkerIntepreter' alias is deprecated, use 'BrokenWorkerInterpreter' instead.",
-                DeprecationWarning,
-                stacklevel=2,
-            )
-            return BrokenWorkerInterpreter
+        list_features = request.flights
+        features_df = [ feature.dict() for feature in list_features]
+        features_df = convert_list_to_df(features_df)
     
-&gt;       raise AttributeError(f"module {__name__!r} has no attribute {attr!r}")
-E       AttributeError: module 'anyio' has no attribute 'start_blocking_portal'
+&gt;       predictions = catalog["model"].predict(features_df)
+E       KeyError: 'model'
 
-.venv/lib/python3.9/site-packages/anyio/__init__.py:111: AttributeError</failure></testcase><testcase classname="tests.api.test_api.TestBatchPipeline" name="test_should_failed_unkown_column_3" time="0.003"><failure message="AttributeError: module 'anyio' has no attribute 'start_blocking_portal'">self = &lt;tests.api.test_api.TestBatchPipeline testMethod=test_should_failed_unkown_column_3&gt;
+challenge/api.py:85: KeyError</failure></testcase><testcase classname="tests.api.test_api.TestBatchPipeline" name="test_should_failed_unkown_column_3" time="0.031"><failure message="KeyError: 'model'">self = &lt;tests.api.test_api.TestBatchPipeline testMethod=test_should_failed_unkown_column_3&gt;
 
     def test_should_failed_unkown_column_3(self):
         data = {
@@ -129,32 +179,57 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
     r = adapter.send(request, **kwargs)
 .venv/lib/python3.9/site-packages/starlette/testclient.py:267: in send
     raise exc
-.venv/lib/python3.9/site-packages/starlette/testclient.py:262: in send
-    with self.portal_factory() as portal:
-/usr/lib/python3.9/contextlib.py:117: in __enter__
-    return next(self.gen)
-.venv/lib/python3.9/site-packages/starlette/testclient.py:450: in _portal_factory
-    with anyio.start_blocking_portal(**self.async_backend) as portal:
+.venv/lib/python3.9/site-packages/starlette/testclient.py:264: in send
+    portal.call(self.app, scope, receive, send)
+.venv/lib/python3.9/site-packages/anyio/from_thread.py:277: in call
+    return cast(T_Retval, self.start_task_soon(func, *args).result())
+/usr/lib/python3.9/concurrent/futures/_base.py:445: in result
+    return self.__get_result()
+/usr/lib/python3.9/concurrent/futures/_base.py:390: in __get_result
+    raise self._exception
+.venv/lib/python3.9/site-packages/anyio/from_thread.py:217: in _call_func
+    retval = await retval
+.venv/lib/python3.9/site-packages/fastapi/applications.py:270: in __call__
+    await super().__call__(scope, receive, send)
+.venv/lib/python3.9/site-packages/starlette/applications.py:124: in __call__
+    await self.middleware_stack(scope, receive, send)
+.venv/lib/python3.9/site-packages/starlette/middleware/errors.py:184: in __call__
+    raise exc
+.venv/lib/python3.9/site-packages/starlette/middleware/errors.py:162: in __call__
+    await self.app(scope, receive, _send)
+.venv/lib/python3.9/site-packages/starlette/middleware/exceptions.py:75: in __call__
+    raise exc
+.venv/lib/python3.9/site-packages/starlette/middleware/exceptions.py:64: in __call__
+    await self.app(scope, receive, sender)
+.venv/lib/python3.9/site-packages/fastapi/middleware/asyncexitstack.py:21: in __call__
+    raise e
+.venv/lib/python3.9/site-packages/fastapi/middleware/asyncexitstack.py:18: in __call__
+    await self.app(scope, receive, send)
+.venv/lib/python3.9/site-packages/starlette/routing.py:680: in __call__
+    await route.handle(scope, receive, send)
+.venv/lib/python3.9/site-packages/starlette/routing.py:275: in handle
+    await self.app(scope, receive, send)
+.venv/lib/python3.9/site-packages/starlette/routing.py:65: in app
+    response = await func(request)
+.venv/lib/python3.9/site-packages/fastapi/routing.py:235: in app
+    raw_response = await run_endpoint_function(
+.venv/lib/python3.9/site-packages/fastapi/routing.py:161: in run_endpoint_function
+    return await dependant.call(**values)
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-attr = 'start_blocking_portal'
+request = InputPrediction(flights=[FlightFeatures(OPERA='Argentinas', TIPOVUELO='O', MES='13')])
 
-    def __getattr__(attr: str) -&gt; type[BrokenWorkerInterpreter]:
-        """Support deprecated aliases."""
-        if attr == "BrokenWorkerIntepreter":
-            import warnings
+    @app.post("/predict", status_code=200)
+    async def post_predict(request: InputPrediction) -&gt; dict:
     
-            warnings.warn(
-                "The 'BrokenWorkerIntepreter' alias is deprecated, use 'BrokenWorkerInterpreter' instead.",
-                DeprecationWarning,
-                stacklevel=2,
-            )
-            return BrokenWorkerInterpreter
+        list_features = request.flights
+        features_df = [ feature.dict() for feature in list_features]
+        features_df = convert_list_to_df(features_df)
     
-&gt;       raise AttributeError(f"module {__name__!r} has no attribute {attr!r}")
-E       AttributeError: module 'anyio' has no attribute 'start_blocking_portal'
+&gt;       predictions = catalog["model"].predict(features_df)
+E       KeyError: 'model'
 
-.venv/lib/python3.9/site-packages/anyio/__init__.py:111: AttributeError</failure></testcase><testcase classname="tests.api.test_api.TestBatchPipeline" name="test_should_get_predict" time="0.003"><failure message="AttributeError: module 'anyio' has no attribute 'start_blocking_portal'">self = &lt;tests.api.test_api.TestBatchPipeline testMethod=test_should_get_predict&gt;
+challenge/api.py:85: KeyError</failure></testcase><testcase classname="tests.api.test_api.TestBatchPipeline" name="test_should_get_predict" time="0.019"><failure message="KeyError: 'model'">self = &lt;tests.api.test_api.TestBatchPipeline testMethod=test_should_get_predict&gt;
 
     def test_should_get_predict(self):
         data = {
@@ -181,29 +256,54 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
     r = adapter.send(request, **kwargs)
 .venv/lib/python3.9/site-packages/starlette/testclient.py:267: in send
     raise exc
-.venv/lib/python3.9/site-packages/starlette/testclient.py:262: in send
-    with self.portal_factory() as portal:
-/usr/lib/python3.9/contextlib.py:117: in __enter__
-    return next(self.gen)
-.venv/lib/python3.9/site-packages/starlette/testclient.py:450: in _portal_factory
-    with anyio.start_blocking_portal(**self.async_backend) as portal:
+.venv/lib/python3.9/site-packages/starlette/testclient.py:264: in send
+    portal.call(self.app, scope, receive, send)
+.venv/lib/python3.9/site-packages/anyio/from_thread.py:277: in call
+    return cast(T_Retval, self.start_task_soon(func, *args).result())
+/usr/lib/python3.9/concurrent/futures/_base.py:445: in result
+    return self.__get_result()
+/usr/lib/python3.9/concurrent/futures/_base.py:390: in __get_result
+    raise self._exception
+.venv/lib/python3.9/site-packages/anyio/from_thread.py:217: in _call_func
+    retval = await retval
+.venv/lib/python3.9/site-packages/fastapi/applications.py:270: in __call__
+    await super().__call__(scope, receive, send)
+.venv/lib/python3.9/site-packages/starlette/applications.py:124: in __call__
+    await self.middleware_stack(scope, receive, send)
+.venv/lib/python3.9/site-packages/starlette/middleware/errors.py:184: in __call__
+    raise exc
+.venv/lib/python3.9/site-packages/starlette/middleware/errors.py:162: in __call__
+    await self.app(scope, receive, _send)
+.venv/lib/python3.9/site-packages/starlette/middleware/exceptions.py:75: in __call__
+    raise exc
+.venv/lib/python3.9/site-packages/starlette/middleware/exceptions.py:64: in __call__
+    await self.app(scope, receive, sender)
+.venv/lib/python3.9/site-packages/fastapi/middleware/asyncexitstack.py:21: in __call__
+    raise e
+.venv/lib/python3.9/site-packages/fastapi/middleware/asyncexitstack.py:18: in __call__
+    await self.app(scope, receive, send)
+.venv/lib/python3.9/site-packages/starlette/routing.py:680: in __call__
+    await route.handle(scope, receive, send)
+.venv/lib/python3.9/site-packages/starlette/routing.py:275: in handle
+    await self.app(scope, receive, send)
+.venv/lib/python3.9/site-packages/starlette/routing.py:65: in app
+    response = await func(request)
+.venv/lib/python3.9/site-packages/fastapi/routing.py:235: in app
+    raw_response = await run_endpoint_function(
+.venv/lib/python3.9/site-packages/fastapi/routing.py:161: in run_endpoint_function
+    return await dependant.call(**values)
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-attr = 'start_blocking_portal'
+request = InputPrediction(flights=[FlightFeatures(OPERA='Aerolineas Argentinas', TIPOVUELO='N', MES='3')])
 
-    def __getattr__(attr: str) -&gt; type[BrokenWorkerInterpreter]:
-        """Support deprecated aliases."""
-        if attr == "BrokenWorkerIntepreter":
-            import warnings
+    @app.post("/predict", status_code=200)
+    async def post_predict(request: InputPrediction) -&gt; dict:
     
-            warnings.warn(
-                "The 'BrokenWorkerIntepreter' alias is deprecated, use 'BrokenWorkerInterpreter' instead.",
-                DeprecationWarning,
-                stacklevel=2,
-            )
-            return BrokenWorkerInterpreter
+        list_features = request.flights
+        features_df = [ feature.dict() for feature in list_features]
+        features_df = convert_list_to_df(features_df)
     
-&gt;       raise AttributeError(f"module {__name__!r} has no attribute {attr!r}")
-E       AttributeError: module 'anyio' has no attribute 'start_blocking_portal'
+&gt;       predictions = catalog["model"].predict(features_df)
+E       KeyError: 'model'
 
-.venv/lib/python3.9/site-packages/anyio/__init__.py:111: AttributeError</failure></testcase></testsuite></testsuites>
+challenge/api.py:85: KeyError</failure></testcase></testsuite></testsuites>
