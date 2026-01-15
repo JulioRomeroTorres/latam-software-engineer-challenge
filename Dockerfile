@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.2
-FROM python:latest as runtime-environment
+FROM python:3.10 as runtime-environment
 
 
 COPY requirements.txt /tmp/requirements.txt
@@ -22,7 +22,10 @@ FROM runtime-environment
 ARG COMPOSER_UID=999
 ARG COMPOSER_GID=0
 COPY --chown=${COMPOSER_UID}:${COMPOSER_GID} challenge/api.py .
+COPY --chown=${COMPOSER_UID}:${COMPOSER_GID} challenge/artifacts/ ./artifacts/
 
 EXPOSE 8080
 
-CMD ["uvicorn", "api.app", "runserver", "0.0.0.0:8080"]
+ENV IS_LOCAL_DEPLOYMENT=1
+
+CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8080"]

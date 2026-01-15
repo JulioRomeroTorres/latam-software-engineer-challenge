@@ -68,11 +68,11 @@ class TestModel(unittest.TestCase):
             target_column="delay"
         )
 
-        feature_training, features_validation, target_training, target_validation = train_test_split(features, target, test_size = 0.33, random_state = 42)
+        _, features_validation, _, target_validation = train_test_split(features, target, test_size = 0.33, random_state = 42)
 
         self.model.fit(
-            features=feature_training,
-            target=pd.DataFrame({'delay': target_training})
+            features=features_validation,
+            target=target_validation
         )
 
         predicted_target = self.model._model.predict(
